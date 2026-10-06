@@ -1,0 +1,174 @@
+{
+  "id": "sigf/minenv",
+  "version": "0.1.0",
+  "name": "Mojavecraft (MineNV)",
+  "tagline": "Real Minecraft inside Fallout: New Vegas: build with Minecraft blocks on the Mojave, salvage junk into Minecraft items, unlock Courier perks.",
+  "how_to_play": [
+    "Real Minecraft 26.3 runs hidden behind Fallout: New Vegas and is drawn inside it: place and break Minecraft blocks on the Mojave's own ground.",
+    "Press Play: Minecraft starts hidden, then New Vegas. Load a save and go outdoors; \"Minecraft is linked.\" appears when both are connected.",
+    "B toggles build mode (outdoors only): left click breaks, right click places, 1-9 pick a block, I opens Minecraft's inventory (Esc or I closes it).",
+    "J salvages New Vegas junk (scrap metal, tin cans, Wonderglue...) into Minecraft items. A farm, a house and a lit beacon unlock Courier perks.",
+    "Four early New Vegas quests (Ain't That a Kick in the Head, Back in the Saddle...) drop a Fallout-themed Minecraft chest next to you."
+  ],
+  "kind": "passthrough",
+  "games": [
+    {
+      "game": "falloutnv",
+      "role": "host",
+      "label": "Fallout: New Vegas",
+      "engine": "Fallout: New Vegas (Gamebryo, D3D9, x86) + xNVSE plugin OverworldSupplyLine (C++) + Go launcher",
+      "apps": {
+        "steam": "22380"
+      },
+      "runtime": "1.4.0.525 only (the plugin refuses other runtimes); Steam or GOG"
+    },
+    {
+      "game": "minecraft",
+      "role": "guest",
+      "label": "Minecraft",
+      "engine": "Minecraft Java 26.3 + Fabric mod osl (Java)",
+      "mc": "26.3",
+      "loader": "fabric@0.19.5",
+      "java": "25"
+    }
+  ],
+  "requires": [
+    {
+      "id": "xnvse",
+      "version": "6.4.9 or newer",
+      "page": "https://github.com/xNVSE/NVSE/releases",
+      "license": "linked, not shipped",
+      "note": "install it yourself before Play: nvse_loader.exe and its DLLs in the New Vegas folder (the app neither installs nor checks it; without it New Vegas never opens)"
+    },
+    {
+      "id": "fabric-loader",
+      "version": "0.19.5"
+    },
+    {
+      "id": "fabric-api",
+      "version": "0.161.0+26.3",
+      "note": "in the Minecraft pack (downloaded from Modrinth)"
+    }
+  ],
+  "install": [
+    {
+      "game": "falloutnv",
+      "strategy": "game-dir-snapshot",
+      "loader": "xnvse",
+      "files": [
+        {
+          "src": "minenv-falloutnv.zip",
+          "dst": "{game}",
+          "unpack": true,
+          "contents": [
+            {
+              "path": "Data/NVSE/Plugins/osl.ini",
+              "sha256": "7fe02937af1b6766252f3b82830a51a458ed592b60ad2aaf84e03e4e6b55ad93"
+            },
+            {
+              "path": "Data/NVSE/Plugins/OverworldSupplyLine.dll",
+              "sha256": "b0c0006763b94d0bd5332078070d2ae6bb674c5b9ebee4da360eb57834b32bca"
+            },
+            {
+              "path": "OSL/LICENSE.txt",
+              "sha256": "12c2d3e797e21d36e7963d5a81df099a943b3ca122aceed5ad2d139285124cf2"
+            },
+            {
+              "path": "OSL/osl-launch.exe",
+              "sha256": "0ce99be2ecf0ab91b60216c6074dc4157b12ddf7f2e4f6dd541034ce6712f5bd"
+            },
+            {
+              "path": "OSL/THIRD-PARTY-NOTICES.md",
+              "sha256": "7065a1f689e80a19216b45453fad8fc2e1ca3a8fa8c2143b8ed2fedb575152b7"
+            }
+          ],
+          "url": "https://github.com/SIGFAI/minenv/releases/download/v0.1.0/minenv-falloutnv.zip",
+          "sha256": "4758097418043ed3dc2d8d2d57598b4bfccb3ba4ac221e0e548a25589be2e198",
+          "size": 1267046
+        }
+      ]
+    },
+    {
+      "game": "minecraft",
+      "strategy": "mrpack",
+      "jvm_args": [
+        "-Dosl.startHidden=true"
+      ],
+      "pack": {
+        "src": "minenv.mrpack",
+        "url": "https://github.com/SIGFAI/minenv/releases/download/v0.1.0/minenv.mrpack",
+        "sha256": "a0532af85cf7523b1a96d4232da2c4b63bc69c15819917e302d3a9c03f11e92d",
+        "size": 195343
+      }
+    }
+  ],
+  "launch": [
+    {
+      "game": "minecraft",
+      "wait": "port:25599"
+    },
+    {
+      "game": "falloutnv",
+      "exe": "OSL/osl-launch.exe",
+      "args": [
+        "--fnv",
+        "{game}"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "name": "minenv-falloutnv.zip",
+      "url": "https://github.com/SIGFAI/minenv/releases/download/v0.1.0/minenv-falloutnv.zip",
+      "sha256": "4758097418043ed3dc2d8d2d57598b4bfccb3ba4ac221e0e548a25589be2e198",
+      "size": 1267046
+    },
+    {
+      "name": "minenv.mrpack",
+      "url": "https://github.com/SIGFAI/minenv/releases/download/v0.1.0/minenv.mrpack",
+      "sha256": "a0532af85cf7523b1a96d4232da2c4b63bc69c15819917e302d3a9c03f11e92d",
+      "size": 195343
+    }
+  ],
+  "source": {
+    "repo": "https://github.com/polysilicon/MineNV",
+    "license": "MIT",
+    "upstream_license": "MIT",
+    "commit": "85c6b3e275d14f8b8de9a3c1171fb65b512dd0c6",
+    "hosted": "https://github.com/SIGFAI/minenv",
+    "based_on": "https://github.com/rehan-remade/universal-modder",
+    "built": {
+      "by": "SIGF",
+      "commit": "85c6b3e275d14f8b8de9a3c1171fb65b512dd0c6",
+      "builder": "AWS EC2 i-00060cf3f910425e5 (c6i.xlarge, Windows Server 2022, terminated after the build); JDK Temurin 25.0.4.1+1 + Gradle 9.7.1 wrapper (Loom 1.18.2), MSVC 19.44.35229 x86 (/Brepro), Go 1.27.1",
+      "artifacts": {
+        "LICENSE": "12c2d3e797e21d36e7963d5a81df099a943b3ca122aceed5ad2d139285124cf2",
+        "osl-0.1.0.jar": "95b810b696d210f87f6be6e10254a9c75ea8212d971c9d612cad3a2ac3f6393c",
+        "osl-launch.exe": "0ce99be2ecf0ab91b60216c6074dc4157b12ddf7f2e4f6dd541034ce6712f5bd",
+        "OverworldSupplyLine.dll": "b0c0006763b94d0bd5332078070d2ae6bb674c5b9ebee4da360eb57834b32bca",
+        "THIRD-PARTY-NOTICES.md": "7065a1f689e80a19216b45453fad8fc2e1ca3a8fa8c2143b8ed2fedb575152b7"
+      }
+    }
+  },
+  "media": {},
+  "built_by": {
+    "author": "polysilicon",
+    "authors": [
+      "polysilicon",
+      "Rehan and universal-modder contributors"
+    ],
+    "packaged_by": "SIGF"
+  },
+  "idea_by": "polysilicon",
+  "built_at": "2026-10-06T00:00:00.000Z",
+  "status": "beta",
+  "issues": "https://github.com/polysilicon/MineNV/issues",
+  "notes": [
+    "Install xNVSE 6.4.9 or newer yourself first (nvse_loader.exe in the New Vegas folder, github.com/xNVSE/NVSE/releases): the app neither installs nor checks it. Without it Play starts a hidden Minecraft and New Vegas never opens (end javaw.exe in Task Manager).",
+    "You need Fallout: New Vegas 1.4.0.525 (Steam or GOG) and a Microsoft account that owns Minecraft: Java Edition, on Windows.",
+    "The first Play opens Prism Launcher: sign in with your Microsoft account. Prism then downloads Minecraft 26.3 and Java once (about 1 GB).",
+    "Single player. Your builds live in the Minecraft world \"mojave\" of the bundled Prism instance; New Vegas saves keep the perk state. Back up your New Vegas saves first.",
+    "Beta, not yet run in New Vegas: upstream tested the Minecraft side against a stand-in for the game only, never this plugin in real New Vegas. Expect bugs and report them to the author with Data/NVSE/Plugins/osl.log and Minecraft's latest.log.",
+    "Both games run at once, so CPU and GPU load is high. The local link (127.0.0.1:25599) has no password while Minecraft runs. Each Play writes Data/NVSE/Plugins/osl_forms.ini and OSL/osl-launch.log; Restore leaves these two small files."
+  ]
+}
