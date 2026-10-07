@@ -38,7 +38,7 @@
       "version": "6.4.9 or newer",
       "page": "https://github.com/xNVSE/NVSE/releases",
       "license": "linked, not shipped",
-      "note": "install it yourself before Play: nvse_loader.exe and its DLLs in the New Vegas folder (the app neither installs nor checks it; without it New Vegas never opens)"
+      "note": "install it yourself before Play: nvse_loader.exe and its DLLs in the New Vegas folder (the SIGF app checks it before install and Play; without it New Vegas never opens)"
     },
     {
       "id": "fabric-loader",
@@ -100,6 +100,15 @@
         "sha256": "a0532af85cf7523b1a96d4232da2c4b63bc69c15819917e302d3a9c03f11e92d",
         "size": 195343
       }
+    }
+  ],
+  "requires_files": [
+    {
+      "id": "xnvse",
+      "game": "falloutnv",
+      "path": "{game}/nvse_loader.exe",
+      "message": "Install xNVSE 6.4.9 or newer first",
+      "page": "https://github.com/xNVSE/NVSE/releases"
     }
   ],
   "launch": [
@@ -164,7 +173,7 @@
   "status": "beta",
   "issues": "https://github.com/polysilicon/MineNV/issues",
   "notes": [
-    "Install xNVSE 6.4.9 or newer yourself first (nvse_loader.exe in the New Vegas folder, github.com/xNVSE/NVSE/releases): the app neither installs nor checks it. Without it Play starts a hidden Minecraft and New Vegas never opens (end javaw.exe in Task Manager).",
+    "Install xNVSE 6.4.9 or newer yourself first (nvse_loader.exe in the New Vegas folder, github.com/xNVSE/NVSE/releases): the SIGF app checks it before Get and Play. An older app does not: without it, Play starts a hidden Minecraft only (end javaw.exe in Task Manager).",
     "You need Fallout: New Vegas 1.4.0.525 (Steam or GOG) and a Microsoft account that owns Minecraft: Java Edition, on Windows.",
     "The first Play opens Prism Launcher: sign in with your Microsoft account. Prism then downloads Minecraft 26.3 and Java once (about 1 GB).",
     "Single player. Your builds live in the Minecraft world \"mojave\" of the bundled Prism instance; New Vegas saves keep the perk state. Back up your New Vegas saves first.",
